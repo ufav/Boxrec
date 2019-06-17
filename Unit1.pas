@@ -27,6 +27,7 @@ type
     Button3: TButton;
     SaveDialog1: TSaveDialog;
     Memo3: TMemo;
+    Button4: TButton;
     procedure FormCreate(Sender: TObject);
     procedure cnnctClick(Sender: TObject);
     procedure gtdtClick(Sender: TObject);
@@ -34,6 +35,7 @@ type
     procedure Button2Click(Sender: TObject);
     procedure Button3Click(Sender: TObject);
     procedure SaveToFile;
+    procedure Button4Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -188,9 +190,9 @@ begin
 
 
 
-      s := IdHTTP.Get('http://boxrec.com/en/date?Znx[date][year]=' +
-      Copy(Memo1.Lines.Strings[i - 1], 7, 4) + '&Znx[date][month]=' +
-      Copy(Memo1.Lines.Strings[i - 1], 4, 2) + '&Znx[date][day]=' +
+      s := IdHTTP.Get('http://boxrec.com/en/date?CnT[date][year]=' +
+      Copy(Memo1.Lines.Strings[i - 1], 7, 4) + '&CnT[date][month]=' +
+      Copy(Memo1.Lines.Strings[i - 1], 4, 2) + '&CnT[date][day]=' +
       Copy(Memo1.Lines.Strings[i - 1], 1, 2) + '&d_go=');
       {s := IdHTTP.Get('http://boxrec.com/en/date?lrc[date]' +
         '[year]=' + Copy(Memo1.Lines.Strings[i - 1], 7, 4) +
@@ -201,7 +203,7 @@ begin
         repeat
           lst3.Add(re1.Match[1]);
         until not re1.ExecNext;
-      FreeAndNil(IdHTTP); //убиваем всё созданное
+      FreeAndNil(IdHTTP); //СѓР±РёРІР°РµРј РІСЃС‘ СЃРѕР·РґР°РЅРЅРѕРµ
       FreeAndNil(re1);
     end;
 
@@ -665,7 +667,7 @@ begin
 
         lst1.Clear;
 
-        FreeAndNil(IdHTTP); //убиваем всё созданное
+        FreeAndNil(IdHTTP); //СѓР±РёРІР°РµРј РІСЃС‘ СЃРѕР·РґР°РЅРЅРѕРµ
         FreeAndNil(lst1);
         FreeAndNil(lst2);
         FreeAndNil(re1);
@@ -1127,7 +1129,7 @@ begin
 
         lst1.Clear;
 
-        FreeAndNil(IdHTTP); //убиваем всё созданное
+        FreeAndNil(IdHTTP); //СѓР±РёРІР°РµРј РІСЃС‘ СЃРѕР·РґР°РЅРЅРѕРµ
         FreeAndNil(lst1);
         FreeAndNil(lst2);
         FreeAndNil(re1);
@@ -1136,6 +1138,11 @@ begin
   lst3.Clear;
   FreeAndNil(lst3);
 
+end;
+
+procedure TForm1.Button4Click(Sender: TObject);
+begin
+  SaveToFile;
 end;
 
 function CountPos(const subtext: string; Text: string): Integer;
@@ -1165,9 +1172,9 @@ procedure TForm1.SaveToFile;
 begin
   if SaveDialog1.Execute then
     begin
-      if FileExists(SaveDialog1.FileName) then    //если такой файл уже есть
+      if FileExists(SaveDialog1.FileName) then    //РµСЃР»Рё С‚Р°РєРѕР№ С„Р°Р№Р» СѓР¶Рµ РµСЃС‚СЊ
         begin
-          if MessageDlg(SaveDialog1.FileName + ' уже существует.' + #13#10 + 'Заменить?', mtConfirmation, mbYesNoCancel, 0) = mrYes then
+          if MessageDlg(SaveDialog1.FileName + ' СѓР¶Рµ СЃСѓС‰РµСЃС‚РІСѓРµС‚.' + #13#10 + 'Р—Р°РјРµРЅРёС‚СЊ?', mtConfirmation, mbYesNoCancel, 0) = mrYes then
             lst4.SaveToFile(SaveDialog1.FileName);
         end
       else
@@ -1177,4 +1184,3 @@ begin
 end;
 
 end.
-
