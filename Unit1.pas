@@ -348,7 +348,7 @@ begin
             lst1.Delimiter := ';';
             data_list.Cells[10, i] := lst1.DelimitedText;
             data_list.Cells[10, i] := StringReplace(data_list.Cells[10, i] , ';', '', [rfReplaceAll, rfIgnoreCase]);
-            sl6 := AnsiQuotedStr(StringReplace(data_list.Cells[10, i] , ';', '', [rfReplaceAll, rfIgnoreCase]), '"');
+            fl6 := AnsiQuotedStr(StringReplace(data_list.Cells[10, i] , ';', '', [rfReplaceAll, rfIgnoreCase]), '"');
             lst1.Clear;
             re1.Expression := 'left;">(.*?)">';
             if re1.Exec(t) then
