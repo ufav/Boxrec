@@ -1,0 +1,28 @@
+import requests
+from bs4 import BeautifulSoup
+import csv
+
+
+auth = {'_username': 'khvostatyy', '_password': 'Ghbrjk123'}
+
+r = requests.post('http://boxrec.com/en/login', params=auth)
+
+r = requests.get('https://boxrec.com/en/locations/people?l%5Brole%5D=proboxer&l%5Bdivision%5D=&l%5Bcountry%5D=&l%5Bregion%5D=&l%5Btown%5D=&l_go=')
+
+soup = BeautifulSoup(r.text, 'html.parser')
+tables = soup.find('table', class_='dataTable')
+table1 = tables.find_all('tr', class_=None)[1:]
+table2 = tables.find_all('tr', class_='oddRow')
+table1.extend(table2)
+
+
+for table in table1:
+    names = table.find('a', class_='personLink').text
+    sex = table.find_all('td', class_='drawRowBorder')[3].text.strip()
+    country = table.find_all('td', class_='drawRowBorder')[1].text.strip()
+    print(names + ',' + sex + ',' + country)
+
+
+
+
+#print(table1)
